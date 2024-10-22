@@ -9,6 +9,7 @@ async function fetchArticles() {
         renderArticles();
     } catch (error) {
         console.error("Error fetching articles:", error);
+        showError("Failed to fetch articles. Please try again later.");
     }
     hideLoading();
 }
@@ -16,6 +17,11 @@ async function fetchArticles() {
 function renderArticles() {
     const articlesContainer = document.getElementById('articles');
     articlesContainer.innerHTML = '';
+
+    if (articles.length === 0) {
+        articlesContainer.innerHTML = '<p>No articles available.</p>';
+        return;
+    }
 
     articles.forEach(article => {
         const articleElement = document.createElement('div');
@@ -31,16 +37,23 @@ function renderArticles() {
 
 async function addArticle(event) {
     event.preventDefault();
-    const title = document.getElementById('articleTitle').value;
-    const content = document.getElementById('articleContent').value;
+    const title = document.getElementById('articleTitle').value.trim();
+    const content = document.getElementById('articleContent').value.trim();
+
+    if (!title || !content) {
+        showError("Please fill in both title and content.");
+        return;
+    }
 
     showLoading();
     try {
         await backend.addArticle(title, content);
         document.getElementById('articleForm').reset();
         await fetchArticles();
+        showSuccess("Article added successfully.");
     } catch (error) {
         console.error("Error adding article:", error);
+        showError("Failed to add article. Please try again.");
     }
     hideLoading();
 }
@@ -58,6 +71,22 @@ function hideLoading() {
     if (loadingSpinner) {
         loadingSpinner.remove();
     }
+}
+
+function showError(message) {
+    const errorElement = document.createElement('div');
+    errorElement.className = 'error-message';
+    errorElement.textContent = message;
+    document.body.appendChild(errorElement);
+    setTimeout(() => errorElement.remove(), 5000);
+}
+
+function showSuccess(message) {
+    const successElement = document.createElement('div');
+    successElement.className = 'success-message';
+    successElement.textContent = message;
+    document.body.appendChild(successElement);
+    setTimeout(() => successElement.remove(), 5000);
 }
 
 document.getElementById('articleForm').addEventListener('submit', addArticle);
