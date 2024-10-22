@@ -1,0 +1,14 @@
+type Article = 
+ record {
+   content: text;
+   id: nat;
+   timestamp: int;
+   title: text;
+ };
+service : {
+  addArticle: (text, text) -> (nat);
+  deleteArticle: (nat) -> (bool);
+  getAllArticles: () -> (vec Article) query;
+  getArticle: (nat) -> (opt Article) query;
+  updateArticle: (nat, text, text) -> (bool);
+}

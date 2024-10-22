@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DFINITY Global R&D News - 90's Birthday Bash!</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <header>
+        <h1>🎉 DFINITY Global R&D News 🎈</h1>
+        <p>Welcome to our 90's Birthday Bash!</p>
+    </header>
+
+    <main>
+        <section id="articleList">
+            <h2>Latest News</h2>
+            <div id="articles"></div>
+        </section>
+
+        <section id="addArticle">
+            <h2>Add New Article</h2>
+            <form id="articleForm">
+                <input type="text" id="articleTitle" placeholder="Article Title" required>
+                <textarea id="articleContent" placeholder="Article Content" required></textarea>
+                <button type="submit">Add Article</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2023 DFINITY Foundation. All rights reserved.</p>
+    </footer>
+
+    <script type="module" src="index.js"></script>
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>
